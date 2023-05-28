@@ -20,7 +20,9 @@ app.use(express.json());
 app.use("/products", productRoutes);
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/products")
+  .connect(
+    "mongodb+srv://productsdisplay:oA0QiGHQdyqIYpYC@products.i0tsm29.mongodb.net/?retryWrites=true&w=majority"
+  )
   .then(() => console.log("Connected successfully"))
   .catch((err) => console.error(err));
 
