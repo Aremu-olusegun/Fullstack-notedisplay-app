@@ -33,17 +33,34 @@ router.post("/product", (req, res) => {
   const product = req.body; // Get the product data from the request body
 
   // Perform server-side validation
-  if (!product || !product.item || !product.description || !product.price) {
+  const { item, description, price } = product;
+  if (!item || !description || !price) {
     return res.status(400).json({ error: "Invalid product details" });
   }
 
-  Products.create(product) // Create a new product in the database
-    .then((result) => {
-      res.status(201).json(result); // Send the created product as the response
+  // Check if a similar product already exists
+  Products.findOne({ item, description, price })
+    .then((existingProduct) => {
+      if (existingProduct) {
+        // A similar product already exists
+        return res
+          .status(409)
+          .json({ error: "Similar product already exists" });
+      }
+
+      // Create a new product in the database
+      Products.create(product)
+        .then((result) => {
+          res.status(201).json(result); // Send the created product as the response
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).json({ error: "Failed to create product" });
+        });
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).json({ error: "Failed to create product" });
+      res.status(500).json({ error: "Failed to check for existing product" });
     });
 });
 
@@ -67,6 +84,7 @@ router.put("/:id", (req, res) => {
   const updatedProduct = req.body;
 
   // Perform server-side validation
+  const { item, description, price } = updatedProduct;
   if (
     !updatedProduct ||
     !updatedProduct.item ||

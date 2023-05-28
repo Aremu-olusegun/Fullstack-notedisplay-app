@@ -12,7 +12,7 @@ const ProductDetailPage = () => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/products/product/${id}`
+          `http://localhost:4000/products/product/${id}`
         ); // Replace with your API endpoint to fetch the product data
         const data = await response.json();
         setProduct(data);

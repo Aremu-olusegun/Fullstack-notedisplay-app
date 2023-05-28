@@ -19,13 +19,13 @@ const AddProductForm = ({ products, setProducts }) => {
         };
 
         const response = await axios.post(
-          "http://localhost:3000/products/product",
+          "http://localhost:4000/products/product",
           newProduct
         );
         console.log(response.data); // Log the created product data
 
         const { data: updatedProducts } = await axios.get(
-          "http://localhost:3000/products"
+          "http://localhost:4000/products"
         );
         setProducts(updatedProducts);
 

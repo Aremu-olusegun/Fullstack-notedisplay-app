@@ -11,7 +11,7 @@ const App = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get("http://localhost:3000/products");
+      const { data } = await axios.get("http://localhost:4000/products");
       setProducts(data);
     }
 
@@ -21,7 +21,7 @@ const App = () => {
   const removeProduct = async (e) => {
     console.log(e);
     let id = e;
-    await axios.delete(`http://localhost:3000/products/${id}`);
+    await axios.delete(`http://localhost:4000/products/${id}`);
     setProducts((products) => products.filter((item) => item._id !== id));
   };
 

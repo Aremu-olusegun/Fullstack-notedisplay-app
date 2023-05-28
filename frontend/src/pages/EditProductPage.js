@@ -19,7 +19,7 @@ const EditProductPage = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/products/${id}`);
+      const response = await axios.get(`http://localhost:4000/products/${id}`);
       setProduct(response.data);
     } catch (error) {
       console.log(error);
@@ -37,7 +37,7 @@ const EditProductPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`http://localhost:3000/products/${id}`, product);
+      await axios.put(`http://localhost:4000/products/${id}`, product);
       navigate(`/`);
     } catch (error) {
       console.log(error);
